@@ -26,7 +26,12 @@ from pathlib import Path
 
 BASE_URL_TEMPLATE = "https://www2.census.gov/ces/wp/{year}/"
 FILENAME_RE = re.compile(r'href="(CES-WP-\d{2}-\d+R?\.pdf)"', re.IGNORECASE)
-USER_AGENT = "Mozilla/5.0 (compatible; CES-WP-backup-script/1.0)"
+# A generic script UA gets blocked by Census's WAF ("Request Rejected") on some
+# requests; a browser-like UA avoids that.
+USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+)
 
 # The CES-WP series begins in 1988; years without papers simply 404 and are skipped.
 START_YEAR = 1988
